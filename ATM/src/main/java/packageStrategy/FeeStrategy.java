@@ -9,5 +9,5 @@ package packageStrategy;
  * @author diang
  */
 public interface FeeStrategy {
-    
+    public double calculateFee(String continente);
 }

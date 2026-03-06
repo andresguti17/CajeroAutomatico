@@ -8,6 +8,11 @@ package packageStrategy;
  *
  * @author diang
  */
-public class PremiumFeeStrategy {
+public class PremiumFeeStrategy implements FeeStrategy {
+
+    @Override
+    public double calculateFee(String continente) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
