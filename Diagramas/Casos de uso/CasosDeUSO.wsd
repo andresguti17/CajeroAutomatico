@@ -1,0 +1,109 @@
+@startuml
+left to right direction
+
+actor "Usuario" as user11
+actor "Usuario" as user12
+actor "Usuario" as user13
+actor "Usuario" as user14
+actor "Usuario" as user15
+
+actor "ATM" as atm
+actor "Administrador" as admin
+
+'------------------------------------
+rectangle "HU-01\nConsultar saldo" {
+
+  usecase "Consultar saldo" as UC1
+  usecase "Ingresar datos de cuenta" as UC2
+  usecase "Mostrar saldo en pantalla" as UC3
+
+}
+
+user11 --> UC1
+UC1 ..> UC2 : <<include>>
+UC1 ..> UC3 : <<include>>
+
+
+'------------------------------------
+rectangle "HU-02\nDepositar dinero" {
+
+  usecase "Depositar dinero" as UD1
+  usecase "Ingresar datos de cuenta" as UD2
+  usecase "Ingresar monto a depositar" as UD3
+  usecase "Confirmar deposito" as UD4
+  usecase "Mostrar informacion de la operacion" as UD5
+
+}
+
+user12 --> UD2
+UD2 ..> UD1 : <<include>>
+UD1 ..> UD3 : <<include>>
+UD3 ..> UD4 : <<include>>
+UD4 ..> UD5 : <<include>>
+
+
+'------------------------------------
+rectangle "HU-03\nRetirar dinero" {
+  usecase "Ingresar datos cuenta" as UR1
+  usecase "Retirar dinero" as UR2
+  usecase "Ingresar monto a retirar" as UR3
+  usecase "COnfirmar retiro" as UR4
+  usecase "Mostrar informacion de la operacion" as UR5
+
+}
+
+
+user13 --> UR1
+UR1 ..> UR2 : <<include>>
+UR2 ..> UR3 : <<include>>
+UR3 ..> UR4 : <<include>>
+UR4 ..> UR5 : <<include>>
+
+'------------------------------------
+rectangle "HU-04\nTransferir dinero" {
+  usecase "Ingresar datos cuenta" as UT1
+  usecase "Transferir dinero" as UT2
+  usecase "Buscar cuenta destino" as UT3
+  usecase "Ingresar monto a transferir" as UT4
+  usecase "Confirmar retiro" as UT5
+  usecase "Mostrar informacion de la operacion" as UT6
+
+}
+
+
+user14 --> UT1
+UT1 ..> UT2 : <<include>>
+UT2 ..> UT3 : <<include>>
+UT3 ..> UT4 : <<include>>
+UT4 ..> UT5 : <<include>>
+UT5 ..> UT6 : <<include>>
+
+'------------------------------------
+rectangle "HU-05\nAplicar comisión" {
+
+  usecase "Aplicar comision a transaccion" as UC5
+  usecase "Seleccionar tipo de comision" as UC6
+  usecase "Comision fija" as UC7
+  usecase "Comision porcentual" as UC8
+
+}
+
+admin --> UC5
+UC5 ..> UC6 : <<include>>
+UC6 <|.. UC7
+UC6 <|.. UC8
+
+
+'------------------------------------
+rectangle "HU-06\nNotificar transacciones" {
+
+  usecase "Notificar transaccion" as UN1
+  usecase "Enviar notificacion al usuario" as UN2
+
+}
+
+user15 --> UN1
+UN1 ..> UN2 : <<include>>
+
+
+@enduml
