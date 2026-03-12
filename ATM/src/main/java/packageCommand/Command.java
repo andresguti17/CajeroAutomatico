@@ -4,10 +4,8 @@
  */
 package packageCommand;
 
-/**
- *
- * @author diang
- */
 public interface Command {
-    
+
+    void execute();
+
 }

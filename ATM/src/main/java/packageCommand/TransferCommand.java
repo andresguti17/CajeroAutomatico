@@ -4,10 +4,23 @@
  */
 package packageCommand;
 
-/**
- *
- * @author diang
- */
-public class TransferCommand {
-    
+
+import packageObserver.Account;
+
+public class TransferCommand implements Command {
+
+    private final Account origen;
+    private final Account destino;
+    private final double amount;
+
+    public TransferCommand(Account origen, Account destino, double amount) {
+        this.origen = origen;
+        this.destino = destino;
+        this.amount = amount;
+    }
+
+    @Override
+    public void execute() {
+        origen.transfer(destino, amount);
+    }
 }

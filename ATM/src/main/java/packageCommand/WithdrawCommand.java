@@ -4,10 +4,19 @@
  */
 package packageCommand;
 
-/**
- *
- * @author diang
- */
-public class WithdrawCommand {
-    
+import packageObserver.Account;
+
+public class WithdrawCommand implements Command {
+
+    private final Account account;
+    private final double amount;
+
+    public WithdrawCommand(Account account, double amount) {
+        this.account = account;
+        this.amount = amount;
+    }
+    @Override
+    public void execute() {
+        account.withdraw(amount);
+    }
 }

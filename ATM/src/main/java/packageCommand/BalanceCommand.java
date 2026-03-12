@@ -4,10 +4,19 @@
  */
 package packageCommand;
 
-/**
- *
- * @author diang
- */
-public class BalanceCommand {
-    
+import packageObserver.Account;
+
+public class BalanceCommand implements Command {
+
+    private final Account account;
+
+    public BalanceCommand(Account account) {
+        this.account = account;
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("Balance: " + account.getBalance());
+    }
+
 }
