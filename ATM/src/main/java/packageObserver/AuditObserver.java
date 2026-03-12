@@ -5,11 +5,11 @@
 package packageObserver;
 
 
-public class NotificationObserver implements Observer {
+public class AuditObserver implements Observer {
 
     @Override
     public void update(String message) {
-        System.out.println("NOTIFICACION: " + message);
+        System.out.println("AUDITORIA: " + message);
     }
 
 }

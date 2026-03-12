@@ -4,10 +4,12 @@
  */
 package packageStrategy;
 
+import packageObserver.Continent;
+
 /**
  *
  * @author diang
  */
 public interface FeeStrategy {
-    public double calculateFee(String continente);
+    public double calculateFee(Continent continent);
 }

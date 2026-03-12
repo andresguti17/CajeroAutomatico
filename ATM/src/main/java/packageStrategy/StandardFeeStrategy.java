@@ -4,6 +4,8 @@
  */
 package packageStrategy;
 
+import packageObserver.Continent;
+
 /**
  *
  * @author diang
@@ -11,8 +13,15 @@ package packageStrategy;
 public class StandardFeeStrategy implements FeeStrategy {
 
     @Override
-    public double calculateFee(String continente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public double calculateFee(Continent continent) {
+        return switch (continent) {
+            case AMERICA -> 2.0;
+            case EUROPE -> 3.0;
+            case ASIA -> 3.5;
+            case AFRICA -> 4.0;
+            case OCEANIA -> 4.5;
+            default -> 5.0;
+        };
     }
     
 }

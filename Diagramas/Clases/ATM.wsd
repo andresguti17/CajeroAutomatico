@@ -66,9 +66,18 @@ package PackageObserver {
         + notify()
     }
 
+    enum Continent {
+        AMERICA
+        EUROPE
+        ASIA
+        AFRICA
+        OCEANIA
+    }
+
     class Account {
         - balance: double
         - observers: List<Observer>
+        - continent: Continent
 
         + deposit(amount: double)
         + withdraw(amount: double)
@@ -87,6 +96,8 @@ package PackageObserver {
     class    NotificationObserver {
         + update()
     }
+
+    Continent --o Account
 
     Observer <|.. AuditObserver
     Observer <|.. NotificationObserver
