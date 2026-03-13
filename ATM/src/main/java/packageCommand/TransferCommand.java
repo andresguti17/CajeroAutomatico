@@ -9,18 +9,18 @@ import packageObserver.Account;
 
 public class TransferCommand implements Command {
 
-    private final Account origen;
-    private final Account destino;
+    private final Account fromAccount;
+    private final Account toAccount;
     private final double amount;
 
-    public TransferCommand(Account origen, Account destino, double amount) {
-        this.origen = origen;
-        this.destino = destino;
+    public TransferCommand(Account fromAccount, Account toAccount, double amount) {
+        this.fromAccount = fromAccount;
+        this.toAccount = toAccount;
         this.amount = amount;
     }
 
     @Override
     public void execute() {
-        origen.transfer(destino, amount);
+        fromAccount.transfer(toAccount, amount);
     }
 }

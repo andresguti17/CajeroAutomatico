@@ -21,4 +21,6 @@ public class ATM {
             System.out.println("No hay operación seleccionada.");
         }
     }
+
+    public void showAllTransactions() {}
 }
