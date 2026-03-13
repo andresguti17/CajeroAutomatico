@@ -6,12 +6,20 @@ actor "Usuario" as user12
 actor "Usuario" as user13
 actor "Usuario" as user14
 actor "Usuario" as user15
-
+actor "Usuario" as user16
+actor "Usuario" as user17
+actor "Usuario" as user18
+actor "Usuario" as user19
 actor "ATM" as atm
+actor "ATM" as atm2
+actor "ATM" as atm3
+actor "ATM" as atm4
 actor "Administrador" as admin
+actor "Administrador" as admin2
+
 
 '------------------------------------
-rectangle "HU-01\nConsultar saldo" {
+rectangle "HU-01\nConsultar saldo" as R1{
 
   usecase "Consultar saldo" as UC1
   usecase "Ingresar datos de cuenta" as UC2
@@ -25,7 +33,7 @@ UC1 ..> UC3 : <<include>>
 
 
 '------------------------------------
-rectangle "HU-02\nDepositar dinero" {
+rectangle "HU-02\nDepositar dinero" AS R2 {
 
   usecase "Depositar dinero" as UD1
   usecase "Ingresar datos de cuenta" as UD2
@@ -43,7 +51,7 @@ UD4 ..> UD5 : <<include>>
 
 
 '------------------------------------
-rectangle "HU-03\nRetirar dinero" {
+rectangle "HU-03\nRetirar dinero" AS R3{
   usecase "Ingresar datos cuenta" as UR1
   usecase "Retirar dinero" as UR2
   usecase "Ingresar monto a retirar" as UR3
@@ -60,7 +68,7 @@ UR3 ..> UR4 : <<include>>
 UR4 ..> UR5 : <<include>>
 
 '------------------------------------
-rectangle "HU-04\nTransferir dinero" {
+rectangle "HU-04\nTransferir dinero" AS R4 {
   usecase "Ingresar datos cuenta" as UT1
   usecase "Transferir dinero" as UT2
   usecase "Buscar cuenta destino" as UT3
@@ -79,7 +87,7 @@ UT4 ..> UT5 : <<include>>
 UT5 ..> UT6 : <<include>>
 
 '------------------------------------
-rectangle "HU-05\nAplicar comisión" {
+rectangle "HU-05\nAplicar comisión" AS R5{
 
   usecase "Aplicar comision a transaccion" as UC5
   usecase "Seleccionar tipo de comision" as UC6
@@ -93,9 +101,8 @@ UC5 ..> UC6 : <<include>>
 UC6 <|.. UC7
 UC6 <|.. UC8
 
-
 '------------------------------------
-rectangle "HU-06\nNotificar transacciones" {
+rectangle "HU-06\nNotificar transacciones" as   R6{
 
   usecase "Notificar transaccion" as UN1
   usecase "Enviar notificacion al usuario" as UN2
@@ -105,5 +112,133 @@ rectangle "HU-06\nNotificar transacciones" {
 user15 --> UN1
 UN1 ..> UN2 : <<include>>
 
+rectangle "HU-07\nConsultar informacion de cuenta" AS R7{
+
+  usecase "Consultar informacion de cuenta" as UI1
+  usecase "Obtener datos de cuenta" as UI2
+  usecase "Mostrar numero de cuenta" as UI3
+  usecase "Mostrar saldo" as UI4
+  usecase "Mostrar tipo de cuenta" as UI5
+
+}
+
+user16 --> UI1
+UI1 ..> UI2 : <<include>>
+UI2 ..> UI3 : <<include>>
+UI2 ..> UI4 : <<include>>
+UI2 ..> UI5 : <<include>>
+
+'------------------------------------
+rectangle "HU-08\nValidar saldo antes de retirar" AS R8{
+
+  usecase "Validar saldo disponible" as VS1
+  usecase "Verificar saldo de la cuenta" as VS2
+  usecase "Permitir retiro" as VS3
+
+}
+
+atm --> VS1
+VS1 ..> VS2 : <<include>>
+VS2 ..> VS3 : <<include>>
+
+'------------------------------------
+rectangle "HU-09\nValidar monto de transaccion" AS R9{
+
+  usecase "Validar monto" as VM1
+  usecase "Verificar monto positivo" as VM2
+  usecase "Permitir transaccion" as VM3
+
+}
+
+atm3 --> VM1
+VM1 ..> VM2 : <<include>>
+VM2 ..> VM3 : <<include>>
+'------------------------------------
+rectangle "HU-10\nRegistrar transacciones" AS R10{
+
+  usecase "Registrar transaccion" as RT1
+  usecase "Guardar datos de la transaccion" as RT2
+  usecase "Actualizar historial" as RT3
+
+}
+
+atm4 --> RT1
+RT1 ..> RT2 : <<include>>
+RT2 ..> RT3 : <<include>>
+'------------------------------------
+rectangle "HU-11\nConsultar historial de transacciones" AS R11{
+
+  usecase "Consultar historial" as HT1
+  usecase "Obtener historial de operaciones" as HT2
+  usecase "Mostrar historial de transacciones" as HT3
+
+}
+
+user17 --> HT1
+HT1 ..> HT2 : <<include>>
+HT2 ..> HT3 : <<include>>   
+'------------------------------------
+rectangle "HU-12\nAuditoria de transacciones" AS R12{
+
+  usecase "Ver todas las transacciones" as AT1
+  usecase "Obtener registro del sistema" as AT2
+  usecase "Mostrar reporte de auditoria" as AT3
+
+}
+
+admin2 --> AT1
+AT1 ..> AT2 : <<include>>
+AT2 ..> AT3 : <<include>>
+'------------------------------------
+rectangle "HU-13\nLimite de retiro" AS R13{
+
+  usecase "Controlar limite de retiro" as LR1
+  usecase "Verificar monto maximo diario" as LR2
+  usecase "Permitir retiro dentro del limite" as LR3
+
+}
+
+atm2 --> LR1
+LR1 ..> LR2 : <<include>>
+LR2 ..> LR3 : <<include>>
+'------------------------------------
+rectangle "HU-14\nCancelar transaccion" AS R14{
+
+  usecase "Cancelar transaccion" as CT1
+  usecase "Detener operacion en curso" as CT2
+  usecase "Mostrar mensaje de cancelacion" as CT3
+
+}
+
+user18 --> CT1
+CT1 ..> CT2 : <<include>>
+CT2 ..> CT3 : <<include>>
+'------------------------------------
+rectangle "HU-15\nMenu interactivo"  AS R15{
+
+  usecase "Mostrar menu de opciones" as MI1
+  usecase "Seleccionar operacion" as MI2
+  usecase "Ejecutar opcion seleccionada" as MI3
+
+}
+
+user19 --> MI1
+MI1 ..> MI2 : <<include>>
+MI2 ..> MI3 : <<include>>
+
+R15 -[hidden]> R14
+R14 -[hidden]> R13
+R13 -[hidden]> R12
+R12 -[hidden]> R11
+R11 -[hidden]> R10
+R10 -[hidden]> R9
+R9 -[hidden]> R8
+R8 -[hidden]> R7
+R7 -[hidden]> R6
+R6 -[hidden]> R5
+R5 -[hidden]> R4
+R4 -[hidden]> R3
+R3 -[hidden]> R2
+R2 -[hidden]> R1
 
 @enduml
