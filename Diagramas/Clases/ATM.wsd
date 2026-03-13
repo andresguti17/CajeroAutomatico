@@ -6,6 +6,7 @@ package PackageCommand {
 
         + setCommand(command: Command)
         + execute()
+        + showAllTransactions(): void
     }
 
     interface   Command {
@@ -26,7 +27,7 @@ package PackageCommand {
 
     class    DepositCommand {
         + execute(): void
-        + deposit(): double 
+        + deposit(): double
     }
 
     class    BalanceCommand {
@@ -43,15 +44,15 @@ package PackageCommand {
 package PackageStrategy {
 
     interface   FeeStrategy {
-        + calculateFee(continente: String): double
+        + calculateFee(continent: Continent): double
     }
 
     class    StandardFeeStrategy {
-        + calculateFee(continente: String): double
+        + calculateFee(continente: Continent): double
     }
 
     class    PremiumFeeStrategy {
-        + calculateFee(continente: String): double
+        + calculateFee(continente: Continent): double
     }
 
     FeeStrategy <|.. StandardFeeStrategy
@@ -66,23 +67,22 @@ package PackageObserver {
         + notify()
     }
 
-    enum Continent {
-        AMERICA
-        EUROPE
-        ASIA
-        AFRICA
-        OCEANIA
-    }
-
     class Account {
+        - username: String
+        - password: String
+        - attemptsFailed: int
         - balance: double
+        - transactions: ArrayList<>
         - observers: List<Observer>
         - continent: Continent
 
+        + login(): boolean
         + deposit(amount: double)
         + withdraw(amount: double)
         + transfer(amount: double, targetAccount: Account)
         + getBalance(): double
+        + showInfo(): void
+        + showCommands(): void
     }
 
     interface    Observer {
@@ -97,15 +97,30 @@ package PackageObserver {
         + update()
     }
 
-    Continent --o Account
-
     Observer <|.. AuditObserver
     Observer <|.. NotificationObserver
 }
 
+enum Continent {
+    AMERICA
+    EUROPE
+    ASIA
+    AFRICA
+    OCEANIA
+}
+
+interface Transaction {
+    + validation(): boolean
+}
+
+Continent --o Account
+Transaction <|-- WithdrawCommand
+Transaction <|-- DepositCommand
+Transaction <|-- TransferCommand
+
 ATM o-- Command
 
-WithdrawCommand o-- FeeStrategy 
+WithdrawCommand o-- FeeStrategy
 TransferCommand o-- FeeStrategy
 
 Account o-- Observer
