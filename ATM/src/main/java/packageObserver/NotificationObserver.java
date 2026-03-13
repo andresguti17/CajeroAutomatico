@@ -8,6 +8,15 @@ package packageObserver;
  *
  * @author diang
  */
-public class NotificationObserver {
-    
+public class NotificationObserver implements Observer {
+
+
+    @Override
+    public void update(Subject subject) {
+    if(subject instanceof Account){
+    Account ac = (Account) subject;
+        System.out.println("saldo actual :"+ac.getBalance());
+    }
+        System.out.println("no saldo, no existe ");
+    }
 }
