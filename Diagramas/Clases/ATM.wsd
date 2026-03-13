@@ -14,23 +14,32 @@ package PackageCommand {
     }
 
     class    WithdrawCommand {
+        - account: Account
+        - amount: Amount
         - feeStrategy: FeeStrategy
 
         + execute(): void
     }
 
     class    TransferCommand {
+        - fromAccount: Account
+        - toAccount: Account
+        - amount: Amount
         - feeStrategy: FeeStrategy
 
         + execute(): void
     }
 
     class    DepositCommand {
+        - account: Account
+        - amount: Amount
+
         + execute(): void
-        + deposit(): double
     }
 
     class    BalanceCommand {
+        - account: Account
+
         + execute(): void
     }
 
@@ -62,9 +71,9 @@ package PackageStrategy {
 package PackageObserver {
 
     interface  Subject {
-        + attach(observer: Observer)
-        + detach(observer: Observer)
-        + notify()
+        + addObserver(observer: Observer): void
+        + removeObserver(observer: Observer): void
+        + notifyObservers(): void
     }
 
     class Account {
@@ -86,15 +95,15 @@ package PackageObserver {
     }
 
     interface    Observer {
-        + notifyObservers()
+        + update(subject: Subject): void
     }
 
     class    AuditObserver {
-        + update()
+        + update(subject: Subject): void
     }
 
     class    NotificationObserver {
-        + update()
+        + update(subject: Subject): void
     }
 
     Observer <|.. AuditObserver

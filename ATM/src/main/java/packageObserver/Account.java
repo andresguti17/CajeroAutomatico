@@ -12,6 +12,8 @@ import java.util.List;
 public class Account implements Subject{
     private double balance;
     private List<Observer> observers;
+    private static Continent continent;
+
     public Account(double initialBalance) {
         this.balance = initialBalance;
         this.observers = new ArrayList<>();
@@ -63,5 +65,9 @@ public class Account implements Subject{
         for(Observer o : observers){
             o.update(this);
         }
+    }
+
+    public static Continent getContinent() {
+        return continent;
     }
 }

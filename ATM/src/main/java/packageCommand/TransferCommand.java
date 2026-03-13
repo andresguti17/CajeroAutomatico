@@ -6,12 +6,14 @@ package packageCommand;
 
 
 import packageObserver.Account;
+import packageStrategy.FeeStrategy;
 
 public class TransferCommand implements Command {
 
     private final Account fromAccount;
     private final Account toAccount;
     private final double amount;
+    private FeeStrategy feeStrategy;
 
     public TransferCommand(Account fromAccount, Account toAccount, double amount) {
         this.fromAccount = fromAccount;
@@ -21,6 +23,11 @@ public class TransferCommand implements Command {
 
     @Override
     public void execute() {
-        fromAccount.transfer(toAccount, amount);
+        double finalAmount = amount + (amount * feeStrategy.calculateFee(Account.getContinent()));
+        fromAccount.transfer(toAccount, finalAmount);
+    }
+
+    public void setFeeStrategy(FeeStrategy feeStrategy) {
+        this.feeStrategy = feeStrategy;
     }
 }

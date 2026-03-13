@@ -5,11 +5,13 @@
 package packageCommand;
 
 import packageObserver.Account;
+import packageStrategy.FeeStrategy;
 
 public class WithdrawCommand implements Command {
 
     private final Account account;
     private final double amount;
+    private FeeStrategy feeStrategy;
 
     public WithdrawCommand(Account account, double amount) {
         this.account = account;
@@ -17,6 +19,11 @@ public class WithdrawCommand implements Command {
     }
     @Override
     public void execute() {
-        account.withdraw(amount);
+        double finalAmount = amount + (amount * feeStrategy.calculateFee(Account.getContinent()));
+        account.withdraw(finalAmount);
+    }
+
+    public void setFeeStrategy(FeeStrategy feeStrategy) {
+        this.feeStrategy = feeStrategy;
     }
 }
